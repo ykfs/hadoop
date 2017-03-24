@@ -146,16 +146,22 @@ public class WordMedian extends Configured implements Tool {
         num += Integer.parseInt(lengthFreq);
 
         if (medianIndex2 >= prevNum && medianIndex1 <= num) {
+          if (medianIndex2 == medianIndex1) {
+            if ((line = br.readLine()) == null) {
+              System.out.println("Something goes wrong");
+              return Double.parseDouble(currLen);
+            }
+            st = new StringTokenizer(line);
+            String nextCurrLen = st.nextToken();
+            double theMedian = (Integer.parseInt(currLen) + Integer
+                    .parseInt(nextCurrLen)) / 2.0;
+            System.out.println("The median is: " + theMedian);
+            br.close();
+            return theMedian;
+          }
           System.out.println("The median is: " + currLen);
           br.close();
           return Double.parseDouble(currLen);
-        } else if (medianIndex2 >= prevNum && medianIndex1 < num) {
-          String nextCurrLen = st.nextToken();
-          double theMedian = (Integer.parseInt(currLen) + Integer
-              .parseInt(nextCurrLen)) / 2.0;
-          System.out.println("The median is: " + theMedian);
-          br.close();
-          return theMedian;
         }
       }
     } finally {
